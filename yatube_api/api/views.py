@@ -5,8 +5,9 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
-                                    IsAuthenticated)
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly, IsAuthenticated,
+)
 from rest_framework.pagination import LimitOffsetPagination
 from posts.models import Post, Comment, Follow, Group
 from posts.serializers import (
@@ -35,8 +36,9 @@ class PostViewSet(viewsets.ModelViewSet):
         if limit and offset:
             paginator = LimitOffsetPagination()
             paginator.default_limit = int(limit)
-            page = paginator.paginate_queryset(self.get_queryset(),
-                                            self.request)
+            page = paginator.paginate_queryset(
+                self.get_queryset(), self.request
+            )
             serializer = self.get_serializer(page, many=True)
             return paginator.get_paginated_response(serializer.data)
         return Response(data)
